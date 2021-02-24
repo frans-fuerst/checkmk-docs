@@ -1851,7 +1851,7 @@ Hier ist nochmal eine Übersicht über alle Renderfunktionen:
 
 In einem unserer bisherigen Beispiele haben wir den Zustand {WARN}
 erzeugt, falls nur noch 10 oder weniger Slots frei waren. Dabei war die
-Zahl 10 direkt in der Checkfunktion fest einprogrammiert, oder hart codiert,
+Zahl `10` direkt in der Checkfunktion fest einprogrammiert - hart codiert,
 wie Programmierer sagen würden. In {CMK} ist man allerdings als Anwender
 eher gewohnt, dass man solche Schwellwerte und Parameter per _Regel_
 konfigurieren kann. Deswegen wollen wir uns als nächstes ansehen, wie
@@ -1871,11 +1871,11 @@ Nehmen wir als Beispiel die Datei `memory_simple.py`. Diese
 deklariert eine Regelkette mit folgendem Abschnitt:
 
 .lib/check_mk/gui/plugins/wato/check_parameters/memory_simple.py
-[{file}]
+[{file},highlight='3']
 ----
 rulespec_registry.register(
     CheckParameterRulespecWithItem(
-        *check_group_name="memory_simple",*
+        check_group_name="memory_simple",
         group=RulespecGroupCheckParametersOperatingSystem,
         item_spec=_item_spec_memory_simple,
         match_type="dict",
@@ -1889,7 +1889,7 @@ welches hier auf `"memory_simple"` gesetzt ist. Damit wird die Verbindung
 zum Checkplugin hergestellt. Das machen Sie beim Registrieren des Checks
 mit dem Schlüsselwort `check_ruleset_name`, zum Beispiel:
 
-[{file}]
+[{file},highlight='6-7']
 ----
 register.check_plugin(
     name = "foobar",
@@ -1923,12 +1923,14 @@ Sehen wir uns den Aufbau so einer Datei Schritt für Schritt an.
 Zunächst kommen einige Importbefehle. Falls die Texte in Ihrer
 Datei in andere Sprachen übersetzbar sein sollen, importieren
 Sie den Unterstrich. Dieser ist eine Markierung für alle übersetzbaren
-Texte. Im weiteren schreiben Sie dann z.B. anstelle
+Texte. Im Weiteren schreiben Sie dann z.B. anstelle
 von `"Threshold for warn"` ein `_("Threshold for warn")`.
-Das Übersetzungssystem von {CMK}, welches auf Gettext basiert, findet
+Das Übersetzungssystem von {CMK}, welches auf 
+https://docs.python.org/3/library/gettext.html#module-gettext[gettext]
+basiert, findet
 solche Texte und übernimmt sie in die Liste der zu übersetzenden Texte
 auf. Falls Sie den Check nur für sich selbst bauen, können Sie darauf
-auch verzeichten und brauchen den folgenden Importbefehl nicht:
+auch verzichten und brauchen den folgenden Importbefehl nicht:
 
 .local/share/check_mk/web/plugins/wato/foobar_parameters.py
 [{file}]
